@@ -224,7 +224,6 @@ Next
 
 Dim RefSlide As Slide
 Set RefSlide = ActivePresentation.Slides.Add(Index:=ActivePresentation.Slides.Count + 1, Layout:=ppLayoutText)
-MsgBox RefSlide.Shapes.Count
 RefSlide.Shapes(1).TextFrame.TextRange.text = "Reference"
 RefSlide.Shapes(2).TextFrame.TextRange.text = RefList
 
