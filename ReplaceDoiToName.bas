@@ -175,8 +175,8 @@ For Each curSlide In ActivePresentation.Slides
         
         Dim ss As Shape
         Set ss = curSlide.Shapes.AddShape(msoShapeRectangle, 0, 0, ActivePresentation.PageSetup.SlideWidth, 10)
-        ss.Select
-        With ActiveWindow.Selection.ShapeRange
+
+        With ss
             .Fill.Visible = msoTrue
             .Fill.Solid
             .Fill.ForeColor.RGB = RGB(162, 30, 36)
@@ -184,11 +184,13 @@ For Each curSlide In ActivePresentation.Slides
             .Line.Visible = msoFalse
             
         End With
-        ActiveWindow.Selection.ShapeRange.TextFrame.TextRange.Select
-        ActiveWindow.Selection.ShapeRange.TextFrame.AutoSize = ppAutoSizeShapeToFitText
-        ActiveWindow.Selection.ShapeRange.TextFrame.TextRange.Characters(Start:=1, Length:=0).Select
+        
+        
+        ss.TextFrame.TextRange.Select
+        ss.TextFrame.AutoSize = ppAutoSizeShapeToFitText
+        ss.TextFrame.TextRange.Characters(Start:=1, Length:=0).Select
                 
-        With ActiveWindow.Selection.TextRange
+        With ss.TextFrame.TextRange
             .text = footnotes
             .ParagraphFormat.Alignment = ppAlignLeft
             With .Font
@@ -215,6 +217,7 @@ Next curSlide
 '''''''''''''' DONE: add all DOIs into reference page '''''''''''''''''''
 Dim RefList As String
 RefList = ""
+
 
 For i = 0 To refDOIs.Count - 1
     Dim longName As String
