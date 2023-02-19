@@ -179,7 +179,7 @@ For Each curSlide In ActivePresentation.Slides
         With ss
             .Fill.Visible = msoTrue
             .Fill.Solid
-            .Fill.ForeColor.RGB = RGB(162, 30, 36)
+            .Fill.ForeColor.RGB = RGB(255, 217, 102)
             .Fill.Transparency = 0.5
             .Line.Visible = msoFalse
             
