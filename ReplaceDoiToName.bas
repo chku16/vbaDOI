@@ -1,5 +1,4 @@
 Attribute VB_Name = "Module1"
-
 ' https://stackoverflow.com/questions/218181/how-can-i-url-encode-a-string-in-excel-vba
 Public Function URLEncode( _
    StringVal As String, _
@@ -157,7 +156,7 @@ For Each curSlide In ActivePresentation.Slides
             DOIs = ExtractDOI(text)
             
             For j = 0 To UBound(DOIs)
-                On Error Resume Next
+                'On Error Resume Next
                 refDOIs.Add DOIs(j), DOIs(j) 'add key to avoid duplication
                 textShapes(i).TextFrame.TextRange.text = Replace(text, DOIs(j), "")
                 footnotes = footnotes & doiToName(DOIs(j))
@@ -172,6 +171,7 @@ For Each curSlide In ActivePresentation.Slides
         ' add footnotes
         If Right(footnotes, 1) = vbLf Then footnotes = Left(footnotes, Len(footnotes) - 1)
         footnotes = Replace(footnotes, vbCrLf & vbCrLf, vbCrLf)
+        
         
         Dim ss As Shape
         Set ss = curSlide.Shapes.AddShape(msoShapeRectangle, 0, 0, ActivePresentation.PageSetup.SlideWidth, 10)
@@ -209,6 +209,12 @@ For Each curSlide In ActivePresentation.Slides
         
         ss.Top = ActivePresentation.PageSetup.SlideHeight - ss.Height
         
+        ''''''''''''''' Add Effect: click to disappear '''''''''''''''''''
+        Dim Sequence As Sequence
+        Set Sequence = curSlide.TimeLine.InteractiveSequences.Add(1)
+        Dim effNewEffect As Effect
+        Set effNewEffect = Sequence.AddTriggerEffect(ss, msoAnimEffectAppear, msoAnimTriggerOnShapeClick, ss, "", msoAnimateLevelNone)
+        effNewEffect.Exit = msoTrue
         
         
     End If
@@ -232,8 +238,3 @@ RefSlide.Shapes(1).TextFrame.TextRange.text = "Reference"
 RefSlide.Shapes(2).TextFrame.TextRange.text = RefList
 
 End Sub
-
-
-
-
-
