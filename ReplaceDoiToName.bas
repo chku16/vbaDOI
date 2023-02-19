@@ -157,7 +157,8 @@ For Each curSlide In ActivePresentation.Slides
             DOIs = ExtractDOI(text)
             
             For j = 0 To UBound(DOIs)
-                refDOIs.Add (DOIs(j))
+                On Error Resume Next
+                refDOIs.Add DOIs(j), DOIs(j) 'add key to avoid duplication
                 textShapes(i).TextFrame.TextRange.text = Replace(text, DOIs(j), "")
                 footnotes = footnotes & doiToName(DOIs(j))
                 'If j <> UBound(DOIs) Then footnotes = footnotes & vbCrLf
